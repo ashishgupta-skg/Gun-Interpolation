@@ -112,7 +112,7 @@ input1 = getList(gun1)
 input2 = getList(gun2)
 
 input1_new = []
-# input1_new = list(input1)
+# converting tuple to list
 print len(input1[0])
 for i in input1:
 	for j in range(len(i)):
@@ -121,6 +121,16 @@ for i in input1:
 for i in input2:
 	for j in range(len(i)):
 		i[j] = list(i[j])
+# extending both input curver to (0.0,1.0)
+for i in input1:
+	i[0][0] = 0.0
+	i[-1][0] = 1.0
+for i in input2:
+	i[0][0] = 0.0
+	i[-1][0] = 1.0
+
+print "input1 = ",input1
+print "\ninput2 = ",input2
 
 #calculating linear interp for each curve in input2
 # for n in range(len(input2)):
