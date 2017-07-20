@@ -104,14 +104,39 @@ def updateList (interpShape):
 	    				if pointName[-5:] == "value" and (pointName[-6] == "5"):
 	    					testoutputjson['values'][n+point]['val'] = interpShape[l][ramp][4][1]
 	    				print testoutputjson['values'][n+point]['val']
-			#writeFile(testoutputjson,l)       	
+			writeFile(testoutputjson,l)       	
 			# print testoutputjson['values']
 			# return 0
+def interpList(inputList):
+	nx = [i[0] for i in inputList]
+	ny = [i[1] for i in inputList]
+	return nx,interp1d(nx,ny)
+
+def getYvalue(mylist,interp):
+	out = []
+	for i in range(len(mylist)):
+		out.append([mylist[i],interp(mylist[i])])
+	return out
+
+def completeList(nx1,nx2):
+	for i in range(len(nx1)):
+		if (nx1[i] in nx2) == True:
+			continue
+		else:
+			nx2.append(nx1[i])
+
+	for i in range(len(nx2)):
+		if (nx2[i] in nx1) == True:
+			continue
+		else:
+			nx1.append(nx2[i])
+	nx2.sort()
+	nx1.sort()
+	return nx1,nx2
 
 input1 = getList(gun1)
 input2 = getList(gun2)
 
-input1_new = []
 # converting tuple to list
 print len(input1[0])
 for i in input1:
@@ -121,7 +146,8 @@ for i in input1:
 for i in input2:
 	for j in range(len(i)):
 		i[j] = list(i[j])
-# extending both input curver to (0.0,1.0)
+		
+# extending both input curve to (0.0,1.0)
 for i in input1:
 	i[0][0] = 0.0
 	i[-1][0] = 1.0
@@ -129,22 +155,31 @@ for i in input2:
 	i[0][0] = 0.0
 	i[-1][0] = 1.0
 
-print "input1 = ",input1
-print "\ninput2 = ",input2
+# print "input1 = ",input1[0]
+# print "\ninput2 = ",input2[0]
 
+nx1,interp1 = interpList(input1[0])
+nx2,interp2 = interpList(input2[0])
+# print type(nx1[0] in nx2)
+
+print completeList(nx1,nx2)
+print getYvalue(nx1,interp1)
+print input1[0]
+print getYvalue(nx2,interp2)
+print input2[0]
 #calculating linear interp for each curve in input2
-# for n in range(len(input2)):
-# 	nx = [i[0] for i in input2[n]]
-# 	ny = [i[1] for i in input2[n]]
-# 	input2_interp = interp1d(nx,ny)
-# 	input2[n]=[]
-# 	for m in range(len(input1[n])):
-# 		input2[n].append((input1[n][m][0],float(input2_interp(input1[n][m][0]))))
+	# for n in range(len(input2)):
+	# 	nx = [i[0] for i in input2[n]]
+	# 	ny = [i[1] for i in input2[n]]
+	# 	input2_interp = interp1d(nx,ny)
+	# 	input2[n]=[]
+	# 	for m in range(len(input1[n])):
+	# 		input2[n].append((input1[n][m][0],float(input2_interp(input1[n][m][0]))))
 
-# N=3
-# a = []
-# for k in range(len(input1)):
-# 	a.append(interpolation(input1[k],input2[k],N))
-	
-# updateList(a)
-# print "\na = ",a[0]
+	# N=3
+	# a = []
+	# for k in range(len(input1)):
+	# 	a.append(interpolation(input1[k],input2[k],N))
+		
+	# updateList(a)
+	# print "\na = ",a[0]
