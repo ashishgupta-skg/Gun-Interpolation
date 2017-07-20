@@ -134,6 +134,19 @@ def completeList(nx1,nx2):
 	nx1.sort()
 	return nx1,nx2
 
+def combineandinterpolate(list1,list2):
+	nx1,interp1 = interpList(list1)
+	nx2,interp2 = interpList(list2)
+	nx1,nx2 = completeList(nx1,nx2)
+	list1 = getYvalue(nx1,interp1)
+	list2 = getYvalue(nx2,interp2)
+	return list1, list2
+
+
+
+
+
+
 input1 = getList(gun1)
 input2 = getList(gun2)
 
@@ -146,7 +159,7 @@ for i in input1:
 for i in input2:
 	for j in range(len(i)):
 		i[j] = list(i[j])
-		
+
 # extending both input curve to (0.0,1.0)
 for i in input1:
 	i[0][0] = 0.0
@@ -155,18 +168,20 @@ for i in input2:
 	i[0][0] = 0.0
 	i[-1][0] = 1.0
 
-# print "input1 = ",input1[0]
-# print "\ninput2 = ",input2[0]
 
-nx1,interp1 = interpList(input1[0])
-nx2,interp2 = interpList(input2[0])
-# print type(nx1[0] in nx2)
 
-print completeList(nx1,nx2)
-print getYvalue(nx1,interp1)
-print input1[0]
-print getYvalue(nx2,interp2)
-print input2[0]
+print "Curves in Input1 = ",len(input1)
+print "Curves in Input2 = ",len(input2)
+
+input1_new = []
+input2_new = []
+for i in range(len(input1)):
+	L1 = input1[i]
+	L2 = input2[i]
+	L1,L2 = combineandinterpolate(L1,L2)
+	input1_new.append(L1)
+	input2_new.append(L2)
+
 #calculating linear interp for each curve in input2
 	# for n in range(len(input2)):
 	# 	nx = [i[0] for i in input2[n]]
