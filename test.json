@@ -3191,6 +3191,24 @@
             "name": "xOrd",
             "val": 0,
             "label": "Transform Order"
+        },
+        {
+            "type": "Menu",
+            "name": "geometry_base_bottom_curve5interp",
+            "val": 1,
+            "label": "Interpolation"
+        },
+        {
+            "type": "Float",
+            "name": "geometry_base_bottom_curve5pos",
+            "val": 0.0,
+            "label": "Position"
+        },
+        {
+            "type": "Float",
+            "name": "geometry_base_bottom_curve5value",
+            "val": 1.0,
+            "label": "Value"
         }
     ]
 }

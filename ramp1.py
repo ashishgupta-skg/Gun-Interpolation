@@ -4,7 +4,7 @@ from jsonsempai import magic
 import gun1
 import gun2
 import io
-
+import pprint
 
 
 try:
@@ -143,10 +143,6 @@ def combineandinterpolate(list1,list2):
 	return list1, list2
 
 
-
-
-
-
 input1 = getList(gun1)
 input2 = getList(gun2)
 
@@ -182,19 +178,13 @@ for i in range(len(input1)):
 	input1_new.append(L1)
 	input2_new.append(L2)
 
-#calculating linear interp for each curve in input2
-	# for n in range(len(input2)):
-	# 	nx = [i[0] for i in input2[n]]
-	# 	ny = [i[1] for i in input2[n]]
-	# 	input2_interp = interp1d(nx,ny)
-	# 	input2[n]=[]
-	# 	for m in range(len(input1[n])):
-	# 		input2[n].append((input1[n][m][0],float(input2_interp(input1[n][m][0]))))
-
-	# N=3
-	# a = []
-	# for k in range(len(input1)):
-	# 	a.append(interpolation(input1[k],input2[k],N))
-		
-	# updateList(a)
-	# print "\na = ",a[0]
+N=4
+a = []
+for k in range(len(input1_new)):
+	a.append(interpolation(input1_new[k],input2_new[k],N))
+	
+pprint.pprint(input1_new[0])
+print "\n"
+pprint.pprint(input2_new[0])
+print "\n"
+pprint.pprint(a[0])
